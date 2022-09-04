@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10"></script>
+</head>
+
+<body>
+    <header><a href="https://www.youtube.com/watch?v=AHPkqa5ZaN0&list=PLv6GftO355AtDjStqeyXvhA1oRLuhvJWf&index=6"> Data
+            Binding 1 chiều</a></header>
+    <div id="app">
+        <!-- teamplate syntax -->
+        <p>{{say('world')}}</p>
+        <p> Khuyến mại : {{check? 'Giảm giá' : 'Miễn phí vận chuyển'}}</p>
+        <p>{{formatPrice()}}</p>
+        <a v-bind:href="url" v-bind:target="target">{{title}}</a>
+    </div>
+    <footer> Đây là footer </footer>
+</body>
+<script>
+    var vueInstance = new Vue({
+        el: "#app",
+        data: {
+            title: 'Điện thoại samsung',
+            url: 'https://cellphones.com.vn/samsung-galaxy-m52.html?jskey=Do1zxQW2o52ynV7zcbT3FWF0T9sd8A5dpJpXjHw6XePV2dSGA45TMQc%3D',
+            target: '_blank',
+            price: 7390000,
+            check: false
+        },
+        methods: {
+            say: function (text) {
+                return 'Hello ' + text;
+            },
+            formatPrice() {
+                const number = this.price;
+                // the Japanese yen doesn't use a minor unit
+                return new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(number);
+                // expected output: "￥123,457"
+            }
+        }
+    });
+    console.log(vueInstance)
+    setTimeout(() => {
+        vueInstance.title = 'Samsung Galaxy M52 (5G)'
+    }, 3000)
+</script>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events in VueJS</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10"></script>
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+            background-color: aqua;
+            position: relative;
+        }
+
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Count : {{counter}}</h1>
+        <button @click="handleClick($event, 5)">Click me</button>
+        <div class="box" @mousemove="handleMouseMove">
+            class phải chứa trong thẻ div với id = "app"
+            <p>clientX : {{ clientX }}</p>
+            <p>clientY : {{ clientY }}</p>
+            <div class="box1" @mousemove.stop="handleMouseMove1"></div>
+        </div>
+        <form action="./server.php" @submit.prevent="handleSubmitForm">
+            <la>Name</la>
+            <input type="text" name="name"> </br>
+            <la>email</la>
+            <input type="text" name="email"> </br>
+            <input type="submit" value="login">
+        </form>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            clientX: 0,
+            clientY: 0
+        },
+        methods: {
+            handleSubmitForm(event) {
+                console.log(event);
+                //event.preventDefault();//chặn chuyển hướng
+
+            },
+            handleMouseMove(event) {
+                console.log(event);
+                this.clientX = event.clientX;
+                this.clientY = event.clientY;
+            },
+            handleMouseMove1(event) {
+                //event.stopPropagation();
+                console.log("handleMouseMove1", event.target);
+            },
+            handleClick(event, number) {
+                console.log('event : ', event);
+                console.log('click : ', this);
+                this.counter += number;
+            },
+        }
+    })
+</script>
+
+</html>
